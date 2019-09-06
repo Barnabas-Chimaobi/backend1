@@ -1,0 +1,12 @@
+{
+  "test": {
+    "SECRET_KEY": "12adf9023as*32$enDOFilE^_PerMeat",
+    "MONGODB_URI": "mongodb://localhost:27017/gql-server",
+    "PORT": 9009
+  },
+  "development": {
+    "SECRET_KEY": "12adf9023as*32$enDOFilE^_PerMeat",
+    "MONGODB_URI": "mongodb://localhost:27017/gql-server",
+    "PORT": 9009
+  }
+}
