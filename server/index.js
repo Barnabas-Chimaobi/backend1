@@ -4,6 +4,11 @@ const { PORT, MONGODB_URI } = process.env;
 
 const mongoose = require("mongoose");
 
+const typeDefs = require("./src/types");
+const resolvers = require("./src/resolver");
+const dataSources = require("./src/datasources");
+const { getUser } = require("./src/utils/getAuth");
+
 const options = {
   useCreateIndex: true,
   useNewUrlParser: true,
@@ -18,12 +23,15 @@ mongoose
     process.exit(1);
   });
 
-const typeDefs = require("./src/types");
-const resolvers = require("./src/resolver");
-
 const server = new ApolloServer({
   typeDefs,
-  resolvers
+  resolvers,
+  context: async ({ req }) => {
+    const token = req.headers.authorization || "";
+    const AuthUser = await getUser(token);
+    return AuthUser;
+  },
+  dataSources: () => dataSources
 });
 
 server
