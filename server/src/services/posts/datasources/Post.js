@@ -1,4 +1,5 @@
 const PostModel = require("../../../model/post/post.schema");
+const Author = require("../../../model/user/authors.schema");
 const Base = require("../../../base");
 
 class Post extends Base {
@@ -9,7 +10,7 @@ class Post extends Base {
 
     data.author = data.authorId;
 
-    const post = await Post.create(data);
+    const post = await PostModel.create(data);
 
     author.posts.push(post);
     await author.save();
@@ -20,7 +21,7 @@ class Post extends Base {
   async updatePost(data) {
     if (!data) throw new UserInputError("no data available");
 
-    const foundPost = await Post.findOne({ _id: data.id });
+    const foundPost = await PostModel.findOne({ _id: data.id });
 
     if (foundPost.author.equals(data.authorId)) {
       const updateData = {
@@ -28,9 +29,13 @@ class Post extends Base {
         body: data.body,
         isPublished: data.isPublished
       };
-      const updatedPost = await Post.updateOne({ _id: data.id }, updateData, {
-        new: true
-      });
+      const updatedPost = await PostModel.updateOne(
+        { _id: data.id },
+        updateData,
+        {
+          new: true
+        }
+      );
 
       if (updatedPost.ok === 1) {
         return "Post updated successfully";

@@ -11,7 +11,7 @@ import { ApolloProvider } from "@apollo/react-hooks";
 import User from "./components/user";
 
 const client = new ApolloClient({
-  uri: "http://localhost:9009/graphql"
+  uri: "http://localhost:9009"
 });
 
 const App = () => (

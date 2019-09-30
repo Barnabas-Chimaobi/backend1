@@ -20,14 +20,13 @@ module.exports = gql`
   extend type Mutation {
     addPost(data: addPostInput!): Post
     updatePost(data: updatePost): String
-
     deletePost(id: ID!): String
     addLike(id: ID!): String
   }
 
   input addPostInput {
-    authorId: String!
-    title: String!
+    authorId: ID!
+    title: String
     body: String
     isPublished: Boolean
   }

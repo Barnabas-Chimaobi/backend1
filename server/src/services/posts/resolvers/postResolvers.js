@@ -1,24 +1,24 @@
 const postResolver = {
   postMutation: {
-    addPost: async (_, { data }, { datasource: { Post } }) => {
+    addPost: async (_, { data }, { dataSources: { Post } }) => {
       return await new Post().addPost(data);
     },
 
-    updatePost: async (_, { data }, { datasource: { Post } }) => {
+    updatePost: async (_, { data }, { dataSources: { Post } }) => {
       return await new Post().updatePost(data);
     },
 
-    deletePost: async (_, { data }, { datasource: { Post } }) => {
+    deletePost: async (_, { data }, { dataSources: { Post } }) => {
       return await new Post().deletePost(data);
     }
   },
 
   postQuery: {
-    getAllPosts: async (_, args, { datasource: { Post } }) => {
+    getAllPosts: async (_, args, { dataSources: { Post } }) => {
       return await new Post().getAllPosts();
     },
 
-    getPost: async (_, { id }, { datasource: { Post } }) => {
+    getPost: async (_, { id }, { dataSources: { Post } }) => {
       return await new Post().getPost(id);
     }
   }

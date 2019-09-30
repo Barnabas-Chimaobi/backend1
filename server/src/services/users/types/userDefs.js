@@ -13,6 +13,7 @@ module.exports = gql`
     username: String!
     createdAt: String
     updatedAt: String
+    password: String!
     email: String
     posts: Post
   }

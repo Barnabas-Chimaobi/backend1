@@ -24,6 +24,7 @@ mongoose
   });
 
 const server = new ApolloServer({
+  // cors: true,
   typeDefs,
   resolvers,
   context: async ({ req }) => {

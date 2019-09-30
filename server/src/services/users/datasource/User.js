@@ -15,23 +15,24 @@ class User extends Base {
     data.password = await this.hashPassword(data.password);
 
     const user = await Author.create(data);
+    return user;
 
-    if (user) {
-      user.emailVerificationToken = await this.getEmailVerifierToken(
-        user.username
-      );
-      await user.save();
+    // if (user) {
+    //   user.emailVerificationToken = await this.getEmailVerifierToken(
+    //     user.username
+    //   );
+    //   await user.save();
 
-      const message = await this.getEVTTemplate(
-        "Registration was successful",
-        user.emailVerificationToken
-      );
-      const subject = "Account Verification";
+    //   const message = await this.getEVTTemplate(
+    //     "Registration was successful",
+    //     user.emailVerificationToken
+    //   );
+    //   const subject = "Account Verification";
 
-      this.sendMail(user.email, message, subject);
+    //   this.sendMail(user.email, message, subject);
 
-      return "Registration Successful";
-    }
+    //   return "Registration Successful";
+    // }
   }
 
   async updateUser(data) {

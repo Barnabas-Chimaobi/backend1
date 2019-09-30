@@ -5,8 +5,8 @@ const postSchema = new Schema(
   {
     title: {
       type: String,
-      required: 3,
-      minlength: 4,
+      required: true,
+      minlength: 3,
       trim: true
     },
     // username: {
@@ -15,10 +15,7 @@ const postSchema = new Schema(
     //   trim: true,
     //   unique: true
     // },
-    body: {
-      type: String,
-      trim: true
-    },
+    body: String,
     isPublished: {
       type: Boolean,
       default: true

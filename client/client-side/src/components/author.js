@@ -1,40 +1,59 @@
-import React from "react";
-import { useQuery } from "@apollo/react-hooks";
-import { GET_ALL_AUTHORS } from "./queries";
-// import { gql } from "apollo-boost";
+import React, { Component } from "react";
+import { Mutation } from "react-apollo";
+import { ADD_NEW_AUTHOR } from "./queries";
 
-function GETAUTHORS() {
-  const { loading, error, data } = useQuery(GET_ALL_AUTHORS);
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
-
-  const { getAuthors: Authors } = data;
-
-  const renderAuthors = () => {
-    return Authors.length > 0
-      ? Authors.map((author, idx, ids) => (
-          <div>
-            <h2 key={idx}>{author.email}</h2>,<h1>{author.username}</h1>
-          </div>
-        ))
-      : NoAuthor;
+class CreateLink extends Component {
+  state = {
+    name: "",
+    username: "",
+    password: "",
+    email: ""
   };
 
-  const NoAuthor = (
-    <div>
-      <p>you have no author yet</p>
-    </div>
-  );
+  render() {
+    const { name, username, password, email } = this.state;
+    return (
+      <div>
+        <div className="flex flex-column mt3">
+          <input
+            className="mb2"
+            value={name}
+            onChange={e => this.setState({ name: e.target.value })}
+            type="text"
+            placeholder="A description for the link"
+          />
+          <input
+            className="mb2"
+            value={username}
+            onChange={e => this.setState({ username: e.target.value })}
+            type="text"
+            placeholder="The URL for the link"
+          />
 
-  console.log(renderAuthors);
-
-  return (
-    <div>
-      <p>All Authors</p>
-      {renderAuthors()}
-    </div>
-  );
+          <input
+            className="mb2"
+            value={password}
+            onChange={e => this.setState({ password: e.target.value })}
+            type="text"
+            placeholder="The URL for the link"
+          />
+          <input
+            className="mb2"
+            value={email}
+            onChange={e => this.setState({ email: e.target.value })}
+            type="text"
+            placeholder="The URL for the link"
+          />
+        </div>
+        <Mutation
+          mutation={ADD_NEW_AUTHOR}
+          variables={{ name, username, password, email }}
+        >
+          {postMutation => <button onClick={postMutation}>Submit</button>}
+        </Mutation>
+      </div>
+    );
+  }
 }
 
-export default GETAUTHORS;
+export default CreateLink;
